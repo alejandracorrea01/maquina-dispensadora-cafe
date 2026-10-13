@@ -25,7 +25,7 @@ const precio6 = 5500;
 const precio7 = 3500;
 const precio8 = 4000;
 
-// Ingredientes de cada bebida (gramos y mililitros)
+// Ingredientes de cada bebida
 const cantidadCafeEspresso = 9;
 const cantidadAguaEspresso = 30;
 
@@ -52,23 +52,20 @@ const cantidadEspumaMacchiato = 15;
 const cantidadLecheChocolate = 200;
 const cantidadChocolateBebida = 25;
 
-// Variables para el funcionamiento de la maquina
+// Variables de funcionamiento
 let opcionUsuario = 0;
 let dineroIngresado = 0;
 let cambio = 0;
 let precioSeleccionado = 0;
 let nombreSeleccionado = "";
 let tiempoPreparacion = 0;
-
-// Entradas y control de la compra
 let confirmacionCompra = false;
 
-// Salidas y mensajes de la maquina
+// Variables de mensajes y resultados
 let menuProductos = "";
 let mensajeEstado = "";
 let mensajePreparacion = "";
 let ingredientesSeleccionados = "";
-
 
 // Crear el menu de bebidas
 menuProductos =
@@ -82,10 +79,9 @@ menuProductos =
   "7. " + producto7 + " - $" + precio7 + " COP\n" +
   "8. " + producto8 + " - $" + precio8 + " COP\n";
 
-// Mostrar el menu
 console.log(menuProductos);
 
-// Preparar la entrada de datos por terminal
+// Configurar entrada de datos
 const readline = require("readline");
 
 const interfaz = readline.createInterface({
@@ -97,73 +93,83 @@ const interfaz = readline.createInterface({
 interfaz.question(
   "Selecciona una bebida del 1 al 8: ",
   function (respuesta) {
-    opcionUsuario = Number(respuesta);
+    opcionUsuario = Number(respuesta.trim());
 
-    // Identificar la bebida seleccionada
-    
-if (opcionUsuario === 1) {
-  nombreSeleccionado = producto1;
-  precioSeleccionado = precio1;
-  ingredientesSeleccionados =
-    cantidadCafeEspresso + " g de cafe y " +
-    cantidadAguaEspresso + " ml de agua";
+    // Validar que la opcion sea un numero entero entre 1 y 8
+    if (
+      respuesta.trim() === "" ||
+      !Number.isInteger(opcionUsuario) ||
+      opcionUsuario < 1 ||
+      opcionUsuario > 8
+    ) {
+      console.log("Opcion no valida. Selecciona un numero del 1 al 8.");
+      interfaz.close();
+      return;
+    }
 
-} else if (opcionUsuario === 2) {
-  nombreSeleccionado = producto2;
-  precioSeleccionado = precio2;
-  ingredientesSeleccionados =
-    cantidadCafeAmericano + " g de cafe y " +
-    cantidadAguaAmericano + " ml de agua";
+    // Identificar bebida, precio e ingredientes
+    if (opcionUsuario === 1) {
+      nombreSeleccionado = producto1;
+      precioSeleccionado = precio1;
+      ingredientesSeleccionados =
+        cantidadCafeEspresso + " g de cafe y " +
+        cantidadAguaEspresso + " ml de agua";
 
-} else if (opcionUsuario === 3) {
-  nombreSeleccionado = producto3;
-  precioSeleccionado = precio3;
-  ingredientesSeleccionados =
-    cantidadCafeCapuchino + " g de cafe, " +
-    cantidadLecheCapuchino + " ml de leche y " +
-    cantidadEspumaCapuchino + " ml de espuma de leche";
+    } else if (opcionUsuario === 2) {
+      nombreSeleccionado = producto2;
+      precioSeleccionado = precio2;
+      ingredientesSeleccionados =
+        cantidadCafeAmericano + " g de cafe y " +
+        cantidadAguaAmericano + " ml de agua";
 
-} else if (opcionUsuario === 4) {
-  nombreSeleccionado = producto4;
-  precioSeleccionado = precio4;
-  ingredientesSeleccionados =
-    cantidadCafeLatte + " g de cafe y " +
-    cantidadLecheLatte + " ml de leche";
+    } else if (opcionUsuario === 3) {
+      nombreSeleccionado = producto3;
+      precioSeleccionado = precio3;
+      ingredientesSeleccionados =
+        cantidadCafeCapuchino + " g de cafe, " +
+        cantidadLecheCapuchino + " ml de leche y " +
+        cantidadEspumaCapuchino + " ml de espuma de leche";
 
-} else if (opcionUsuario === 5) {
-  nombreSeleccionado = producto5;
-  precioSeleccionado = precio5;
-  ingredientesSeleccionados =
-    cantidadCafeMocaccino + " g de cafe, " +
-    cantidadLecheMocaccino + " ml de leche y " +
-    cantidadChocolateMocaccino + " g de chocolate";
+    } else if (opcionUsuario === 4) {
+      nombreSeleccionado = producto4;
+      precioSeleccionado = precio4;
+      ingredientesSeleccionados =
+        cantidadCafeLatte + " g de cafe y " +
+        cantidadLecheLatte + " ml de leche";
 
-} else if (opcionUsuario === 6) {
-  nombreSeleccionado = producto6;
-  precioSeleccionado = precio6;
-  ingredientesSeleccionados =
-    cantidadCafeFlatWhite + " g de cafe y " +
-    cantidadLecheFlatWhite + " ml de leche";
+    } else if (opcionUsuario === 5) {
+      nombreSeleccionado = producto5;
+      precioSeleccionado = precio5;
+      ingredientesSeleccionados =
+        cantidadCafeMocaccino + " g de cafe, " +
+        cantidadLecheMocaccino + " ml de leche y " +
+        cantidadChocolateMocaccino + " g de chocolate";
 
-} else if (opcionUsuario === 7) {
-  nombreSeleccionado = producto7;
-  precioSeleccionado = precio7;
-  ingredientesSeleccionados =
-    cantidadCafeMacchiato + " g de cafe y " +
-    cantidadEspumaMacchiato + " ml de espuma de leche";
+    } else if (opcionUsuario === 6) {
+      nombreSeleccionado = producto6;
+      precioSeleccionado = precio6;
+      ingredientesSeleccionados =
+        cantidadCafeFlatWhite + " g de cafe y " +
+        cantidadLecheFlatWhite + " ml de leche";
 
-} else if (opcionUsuario === 8) {
-  nombreSeleccionado = producto8;
-  precioSeleccionado = precio8;
-  ingredientesSeleccionados =
-    cantidadLecheChocolate + " ml de leche y " +
-    cantidadChocolateBebida + " g de chocolate";
-}
+    } else if (opcionUsuario === 7) {
+      nombreSeleccionado = producto7;
+      precioSeleccionado = precio7;
+      ingredientesSeleccionados =
+        cantidadCafeMacchiato + " g de cafe y " +
+        cantidadEspumaMacchiato + " ml de espuma de leche";
 
+    } else if (opcionUsuario === 8) {
+      nombreSeleccionado = producto8;
+      precioSeleccionado = precio8;
+      ingredientesSeleccionados =
+        cantidadLecheChocolate + " ml de leche y " +
+        cantidadChocolateBebida + " g de chocolate";
+    }
 
+    // Mostrar la bebida elegida
     console.log("Seleccionaste: " + nombreSeleccionado);
     console.log("Precio: $" + precioSeleccionado + " COP");
-    
     console.log("Ingredientes: " + ingredientesSeleccionados);
     console.log("--------------------------------");
 
@@ -172,17 +178,19 @@ if (opcionUsuario === 1) {
       interfaz.question(
         "Ingresa el dinero en pesos colombianos: $",
         function (respuestaPago) {
-          dineroIngresado = Number(respuestaPago);
+          const pago = respuestaPago.trim();
 
           if (
-            respuestaPago.trim() === "" ||
-            !Number.isFinite(dineroIngresado) ||
-            dineroIngresado <= 0
+            pago === "" ||
+            !Number.isFinite(Number(pago)) ||
+            Number(pago) <= 0
           ) {
             console.log("Ingresa una cantidad de dinero valida.");
             solicitarPago();
             return;
           }
+
+          dineroIngresado = Number(pago);
 
           if (dineroIngresado < precioSeleccionado) {
             console.log("Dinero insuficiente.");
@@ -195,36 +203,37 @@ if (opcionUsuario === 1) {
             return;
           }
 
-          // Confirmar el pago y calcular el cambio
+          // Confirmar pago y calcular cambio
           cambio = dineroIngresado - precioSeleccionado;
           confirmacionCompra = true;
           mensajeEstado = "Pago exitoso";
 
-          
-console.log("¡Pago exitoso!");
-console.log("Tu cambio es: $" + cambio + " COP");
+          console.log("¡Pago exitoso!");
+          console.log("Tu cambio es: $" + cambio + " COP");
 
-mensajePreparacion =
-  "Preparando tu " + nombreSeleccionado + "...";
-console.log(mensajePreparacion);
+          // Simular la preparacion
+          mensajePreparacion =
+            "Preparando tu " + nombreSeleccionado + "...";
+          console.log(mensajePreparacion);
 
-tiempoPreparacion = 5;
-console.log("Tiempo estimado: " + tiempoPreparacion + " segundos.");
+          tiempoPreparacion = 5;
+          console.log(
+            "Tiempo estimado: " + tiempoPreparacion + " segundos."
+          );
 
+          // Resumen de compra
+          console.log("--------------------------------");
+          console.log("RESUMEN DE TU COMPRA");
+          console.log("Bebida: " + nombreSeleccionado);
+          console.log("Ingredientes: " + ingredientesSeleccionados);
+          console.log("Precio pagado: $" + precioSeleccionado + " COP");
+          console.log("Dinero recibido: $" + dineroIngresado + " COP");
+          console.log("Cambio entregado: $" + cambio + " COP");
+          console.log("--------------------------------");
+          console.log("¡Tu bebida está lista!");
+          console.log("Gracias por comprar en la maquina de cafe.");
 
-console.log("--------------------------------");
-console.log("RESUMEN DE TU COMPRA");
-console.log("Bebida: " + nombreSeleccionado);
-console.log("Ingredientes: " + ingredientesSeleccionados);
-console.log("Precio pagado: $" + precioSeleccionado + " COP");
-console.log("Dinero recibido: $" + dineroIngresado + " COP");
-console.log("Cambio entregado: $" + cambio + " COP");
-console.log("--------------------------------");
-console.log("¡Tu bebida está lista!");
-console.log("Gracias por comprar en la máquina de café.");
-
-interfaz.close();
-
+          interfaz.close();
         }
       );
     }
