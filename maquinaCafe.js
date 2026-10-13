@@ -67,6 +67,8 @@ let confirmacionCompra = false;
 let menuProductos = "";
 let mensajeEstado = "";
 let mensajePreparacion = "";
+let ingredientesSeleccionados = "";
+
 
 // Crear el menu de bebidas
 menuProductos =
@@ -98,38 +100,72 @@ interfaz.question(
     opcionUsuario = Number(respuesta);
 
     // Identificar la bebida seleccionada
-    if (opcionUsuario === 1) {
-      nombreSeleccionado = producto1;
-      precioSeleccionado = precio1;
-    } else if (opcionUsuario === 2) {
-      nombreSeleccionado = producto2;
-      precioSeleccionado = precio2;
-    } else if (opcionUsuario === 3) {
-      nombreSeleccionado = producto3;
-      precioSeleccionado = precio3;
-    } else if (opcionUsuario === 4) {
-      nombreSeleccionado = producto4;
-      precioSeleccionado = precio4;
-    } else if (opcionUsuario === 5) {
-      nombreSeleccionado = producto5;
-      precioSeleccionado = precio5;
-    } else if (opcionUsuario === 6) {
-      nombreSeleccionado = producto6;
-      precioSeleccionado = precio6;
-    } else if (opcionUsuario === 7) {
-      nombreSeleccionado = producto7;
-      precioSeleccionado = precio7;
-    } else if (opcionUsuario === 8) {
-      nombreSeleccionado = producto8;
-      precioSeleccionado = precio8;
-    } else {
-      console.log("Opcion no valida. Selecciona un numero del 1 al 8.");
-      interfaz.close();
-      return;
-    }
+    
+if (opcionUsuario === 1) {
+  nombreSeleccionado = producto1;
+  precioSeleccionado = precio1;
+  ingredientesSeleccionados =
+    cantidadCafeEspresso + " g de cafe y " +
+    cantidadAguaEspresso + " ml de agua";
+
+} else if (opcionUsuario === 2) {
+  nombreSeleccionado = producto2;
+  precioSeleccionado = precio2;
+  ingredientesSeleccionados =
+    cantidadCafeAmericano + " g de cafe y " +
+    cantidadAguaAmericano + " ml de agua";
+
+} else if (opcionUsuario === 3) {
+  nombreSeleccionado = producto3;
+  precioSeleccionado = precio3;
+  ingredientesSeleccionados =
+    cantidadCafeCapuchino + " g de cafe, " +
+    cantidadLecheCapuchino + " ml de leche y " +
+    cantidadEspumaCapuchino + " ml de espuma de leche";
+
+} else if (opcionUsuario === 4) {
+  nombreSeleccionado = producto4;
+  precioSeleccionado = precio4;
+  ingredientesSeleccionados =
+    cantidadCafeLatte + " g de cafe y " +
+    cantidadLecheLatte + " ml de leche";
+
+} else if (opcionUsuario === 5) {
+  nombreSeleccionado = producto5;
+  precioSeleccionado = precio5;
+  ingredientesSeleccionados =
+    cantidadCafeMocaccino + " g de cafe, " +
+    cantidadLecheMocaccino + " ml de leche y " +
+    cantidadChocolateMocaccino + " g de chocolate";
+
+} else if (opcionUsuario === 6) {
+  nombreSeleccionado = producto6;
+  precioSeleccionado = precio6;
+  ingredientesSeleccionados =
+    cantidadCafeFlatWhite + " g de cafe y " +
+    cantidadLecheFlatWhite + " ml de leche";
+
+} else if (opcionUsuario === 7) {
+  nombreSeleccionado = producto7;
+  precioSeleccionado = precio7;
+  ingredientesSeleccionados =
+    cantidadCafeMacchiato + " g de cafe y " +
+    cantidadEspumaMacchiato + " ml de espuma de leche";
+
+} else if (opcionUsuario === 8) {
+  nombreSeleccionado = producto8;
+  precioSeleccionado = precio8;
+  ingredientesSeleccionados =
+    cantidadLecheChocolate + " ml de leche y " +
+    cantidadChocolateBebida + " g de chocolate";
+}
+
 
     console.log("Seleccionaste: " + nombreSeleccionado);
     console.log("Precio: $" + precioSeleccionado + " COP");
+    
+    console.log("Ingredientes: " + ingredientesSeleccionados);
+    console.log("--------------------------------");
 
     // Solicitar y validar el pago
     function solicitarPago() {
