@@ -164,11 +164,22 @@ interfaz.question(
           confirmacionCompra = true;
           mensajeEstado = "Pago exitoso";
 
-          console.log("¡Pago exitoso!");
-          console.log("Tu cambio es: $" + cambio + " COP");
-          console.log("Compra confirmada. Gracias por tu compra.");
+          
+console.log("¡Pago exitoso!");
+console.log("Tu cambio es: $" + cambio + " COP");
 
-          interfaz.close();
+mensajePreparacion =
+  "Preparando tu " + nombreSeleccionado + "...";
+console.log(mensajePreparacion);
+
+tiempoPreparacion = 5;
+console.log("Tiempo estimado: " + tiempoPreparacion + " segundos.");
+
+console.log("¡Tu bebida está lista!");
+console.log("Gracias por comprar en la máquina de café.");
+
+interfaz.close();
+
         }
       );
     }
