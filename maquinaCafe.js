@@ -69,3 +69,19 @@ let menuProductos = "";
 let mensajeEstado = "";
 let mensajePreparacion = "";
 
+ // Crear el menu de bebidas
+menuProductos =
+  "===== MAQUINA DE CAFE =====\n" +
+  "1. " + producto1 + " - $" + precio1 + " COP\n" +
+  "2. " + producto2 + " - $" + precio2 + " COP\n" +
+  "3. " + producto3 + " - $" + precio3 + " COP\n" +
+  "4. " + producto4 + " - $" + precio4 + " COP\n" +
+  "5. " + producto5 + " - $" + precio5 + " COP\n" +
+  "6. " + producto6 + " - $" + precio6 + " COP\n" +
+  "7. " + producto7 + " - $" + precio7 + " COP\n" +
+  "8. " + producto8 + " - $" + precio8 + " COP\n";
+
+// Mostrar el menu en pantalla
+console.log(menuProductos);
+
+
