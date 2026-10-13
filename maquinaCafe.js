@@ -211,6 +211,15 @@ console.log(mensajePreparacion);
 tiempoPreparacion = 5;
 console.log("Tiempo estimado: " + tiempoPreparacion + " segundos.");
 
+
+console.log("--------------------------------");
+console.log("RESUMEN DE TU COMPRA");
+console.log("Bebida: " + nombreSeleccionado);
+console.log("Ingredientes: " + ingredientesSeleccionados);
+console.log("Precio pagado: $" + precioSeleccionado + " COP");
+console.log("Dinero recibido: $" + dineroIngresado + " COP");
+console.log("Cambio entregado: $" + cambio + " COP");
+console.log("--------------------------------");
 console.log("¡Tu bebida está lista!");
 console.log("Gracias por comprar en la máquina de café.");
 
