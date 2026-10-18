@@ -217,3 +217,12 @@ Los siguientes pasos serán probar el funcionamiento del programa con diferentes
 También será importante comprobar que el sistema responda correctamente cuando se ingrese una selección inválida, cuando el pago sea insuficiente y cuando el usuario ingrese cantidades diferentes al precio exacto.
 
 A medida que avance el proyecto, continuaré actualizando esta bitácora para registrar las nuevas funciones, las correcciones y los aprendizajes que vaya obteniendo.
+
+16. ### Control de inventario de vasos
+
+- **Cambio realizado:** Se agregó la variable `vasosDisponibles`, inicializada en 20, para controlar la cantidad de vasos disponibles en la máquina de café.
+- **Validación:** Se incorporó una condición para impedir que la máquina continúe si no quedan vasos disponibles.
+- **Actualización del inventario:** Después de una compra exitosa, se descuenta un vaso y se muestra la cantidad restante en la terminal.
+- **Prueba realizada:** Se verificó que, después de una compra, el inventario disminuye de 20 a 19 vasos.
+- **Archivos modificados:** `maquinaCafe.js` y `README.md`.
+- **Control de versiones:** Commit `af35bf7` — `feat: add cup inventory control`.
