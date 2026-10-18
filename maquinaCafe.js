@@ -60,6 +60,7 @@ let precioSeleccionado = 0;
 let nombreSeleccionado = "";
 let tiempoPreparacion = 0;
 let confirmacionCompra = false;
+let vasosDisponibles = 20;
 
 // Variables de mensajes y resultados
 let menuProductos = "";
@@ -175,6 +176,11 @@ interfaz.question(
 
     // Solicitar y validar el pago
     function solicitarPago() {
+      if (vasosDisponibles <= 0) {
+  console.log("Lo sentimos, no quedan vasos disponibles.");
+  interfaz.close();
+  return;
+}
       interfaz.question(
         "Ingresa el dinero en pesos colombianos: $",
         function (respuestaPago) {
@@ -231,6 +237,8 @@ interfaz.question(
           console.log("Cambio entregado: $" + cambio + " COP");
           console.log("--------------------------------");
           console.log("¡Tu bebida está lista!");
+          vasosDisponibles--;
+          console.log("Vasos disponibles: " + vasosDisponibles);
           console.log("Gracias por comprar en la maquina de cafe.");
 
           interfaz.close();
