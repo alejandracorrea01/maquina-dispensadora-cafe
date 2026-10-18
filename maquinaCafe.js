@@ -185,6 +185,12 @@ interfaz.question(
         "Ingresa el dinero en pesos colombianos: $",
         function (respuestaPago) {
           const pago = respuestaPago.trim();
+          if (pago === "0") {
+         console.log("Compra cancelada.");
+         console.log("Te devolvemos: $" + dineroIngresado + " COP");
+         interfaz.close();
+         return; 
+          }
 
           if (
             pago === "" ||

@@ -226,3 +226,12 @@ A medida que avance el proyecto, continuaré actualizando esta bitácora para re
 - **Prueba realizada:** Se verificó que, después de una compra, el inventario disminuye de 20 a 19 vasos.
 - **Archivos modificados:** `maquinaCafe.js` y `README.md`.
 - **Control de versiones:** Commit `af35bf7` — `feat: add cup inventory control`.
+
+### Cancelación de compra y devolución de dinero
+
+- **Cambio realizado:** Se agregó una opción para cancelar la compra escribiendo `0` durante el ingreso del pago.
+- **Devolución:** La máquina informa el valor que devuelve al usuario según el dinero registrado en `dineroIngresado`.
+- **Validación:** Se comprobó que la compra se cancele y que la interfaz se cierre sin preparar la bebida ni descontar un vaso.
+- **Prueba realizada:** Se seleccionó una bebida y se ingresó `0`. La máquina mostró el mensaje de compra cancelada y una devolución de `$0 COP`.
+- **Archivos modificados:** `maquinaCafe.js`, `README.md` y `BITACORA.md`.
+

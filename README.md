@@ -181,6 +181,7 @@ Las reglas de negocio establecen las condiciones que debe cumplir el programa pa
 8. Si el pago es suficiente, el programa debe calcular el cambio mediante una resta.
 9. El programa debe mostrar el resultado de la operación y un resumen de la compra.
 10. Los precios y las cantidades de ingredientes deben mantenerse consistentes con las recetas documentadas.
+11. - **Cancelación de compra:** El usuario puede escribir `0` durante el ingreso del pago para cancelar la compra. La máquina informa el valor que devuelve, cierra la interfaz y no prepara la bebida ni descuenta un vaso.
 
 ## 8. Pseudocódigo
 
