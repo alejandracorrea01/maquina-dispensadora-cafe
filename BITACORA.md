@@ -235,3 +235,20 @@ A medida que avance el proyecto, continuaré actualizando esta bitácora para re
 - **Prueba realizada:** Se seleccionó una bebida y se ingresó `0`. La máquina mostró el mensaje de compra cancelada y una devolución de `$0 COP`.
 - **Archivos modificados:** `maquinaCafe.js`, `README.md` y `BITACORA.md`.
 
+### Implementación de compras consecutivas e inventario
+
+**Cambios realizados:**
+- Se reorganizó el flujo del programa para permitir varias compras durante una misma ejecución.
+- Se agregó la opción de comprar otra bebida o apagar la máquina.
+- Se implementó la validación de disponibilidad de ingredientes y vasos.
+- Se actualiza el inventario después de cada compra exitosa.
+- Se conserva la cancelación de compra y la validación del pago.
+
+**Pruebas realizadas:**
+- Compra de bebidas consecutivas.
+- Descuento de vasos e ingredientes.
+- Validación del dinero ingresado.
+- Cancelación de una compra.
+- Verificación de la opción de apagar la máquina.
+
+**Resultado:** las pruebas se realizaron correctamente y el inventario se mantiene actualizado durante la ejecución del programa.
