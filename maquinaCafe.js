@@ -76,6 +76,8 @@ let menuProductos = "";
 let mensajeEstado = "";
 let mensajePreparacion = "";
 let ingredientesSeleccionados = "";
+// Preferencia de azucar
+let deseaAzucar = "";
 
 // Crear el menu de bebidas
 menuProductos =
@@ -275,7 +277,6 @@ function solicitarPago() {
           (precioSeleccionado - dineroIngresado) +
           " COP"
         );
-        solicitarPago();
         return;
       }
 
@@ -305,6 +306,7 @@ function solicitarPago() {
       console.log("RESUMEN DE TU COMPRA");
       console.log("Bebida: " + nombreSeleccionado);
       console.log("Ingredientes: " + ingredientesSeleccionados);
+      console.log("Azucar: " + deseaAzucar);
       console.log("Precio pagado: $" + precioSeleccionado + " COP");
       console.log("Dinero recibido: $" + dineroIngresado + " COP");
       console.log("Cambio entregado: $" + cambio + " COP");
@@ -322,6 +324,33 @@ function solicitarPago() {
       console.log("Gracias por comprar en la maquina de cafe.");
 
       preguntarOtraCompra();
+    }
+  );
+}
+
+// Preguntar si el usuario desea azucar
+function preguntarAzucar() {
+  interfaz.question (
+    "\n¿Deseas azucar en tu bebida?'\n" +
+    "1.Si\n" +
+    "2.No\n" +
+    "Selecciona una opción : ",
+    function (respuesta) {
+      const opcionAzucar = respuesta.trim() ;
+
+      if (opcionAzucar === "1") {
+        deseaAzucar = "Si";
+      } else if (opcionAzucar === "2") {
+        deseaAzucar = "No" ;
+      } else {
+        console.log ("Opcion no valida. Escribe 1 o 2.");
+          preguntarAzucar();
+          return;
+      }
+
+      console.log("Azucar seleccionada: " + deseaAzucar);
+
+      solicitarPago() ;
     }
   );
 }
@@ -423,7 +452,9 @@ function seleccionarBebida() {
       console.log("Ingredientes: " + ingredientesSeleccionados);
       console.log("--------------------------------");
 
-      solicitarPago();
+    
+      
+      preguntarAzucar();
     }
   );
 }
