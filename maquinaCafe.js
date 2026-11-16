@@ -52,6 +52,51 @@ const cantidadEspumaMacchiato = 15;
 const cantidadLecheChocolate = 200;
 const cantidadChocolateBebida = 25;
 
+// Denominaciones para devolver el cambio
+const denominacionesCambio = [
+  { valor: 100000, tipo: "Billete" },
+  { valor: 50000, tipo: "Billete" },
+  { valor: 20000, tipo: "Billete" },
+  { valor: 10000, tipo: "Billete" },
+  { valor: 5000, tipo: "Billete" },
+  { valor: 2000, tipo: "Billete" },
+  { valor: 1000, tipo: "Billete" },
+  { valor: 1000, tipo: "Moneda" },
+  { valor: 500, tipo: "Moneda" },
+  { valor: 200, tipo: "Moneda" },
+  { valor: 100, tipo: "Moneda" },
+  { valor: 50, tipo: "Moneda" }
+];
+
+// Calcular la devolucion exacta del cambio
+function calcularCambio(cambio) {
+  let cambioRestante = cambio;
+  let resultadoCambio = [];
+
+  for (let denominacion of denominacionesCambio) {
+    let cantidad = Math.floor(
+      cambioRestante / denominacion.valor
+    );
+
+    if (cantidad > 0) {
+      resultadoCambio.push({
+        valor: denominacion.valor,
+        tipo: denominacion.tipo,
+        cantidad: cantidad
+      });
+
+      cambioRestante -= cantidad * denominacion.valor;
+    }
+  }
+
+  if (cambioRestante > 0) {
+    console.log("No es posible devolver el cambio exacto.");
+    return null;
+  }
+
+  return resultadoCambio;
+}
+
 // Inventario inicial de ingredientes
 let cafeDisponible = 500;       // gramos
 let aguaDisponible = 5000;      // mililitros
@@ -272,32 +317,62 @@ function solicitarPago() {
         Number(pago) < 0
       ) {
         console.log("Ingresa una cantidad de dinero valida.");
-        preguntarAzucar();
+        solicitarPago();
         return;
       }
 
       dineroIngresado = Number(pago);
 
-      if (dineroIngresado < precioSeleccionado) {
-        console.log("Dinero insuficiente.");
-        console.log(
-          "Te faltan: $" +
-          (precioSeleccionado - dineroIngresado) +
-          " COP"
-        );
-        return;
-      }
+     if (dineroIngresado < precioSeleccionado) {
+  console.log("Dinero insuficiente.");
+  console.log(
+    "Te faltan: $" +
+    (precioSeleccionado - dineroIngresado) +
+    " COP"
+  );
+  solicitarPago();
+  return;
+}
 
       // Confirmar pago y calcular cambio
-      cambio = dineroIngresado - precioSeleccionado;
-      confirmacionCompra = true;
-      mensajeEstado = "Pago exitoso";
+cambio = dineroIngresado - precioSeleccionado;
+
+// Calcular la cantidad de billetes y monedas
+let desgloseCambio = calcularCambio(cambio);
+
+if (desgloseCambio === null) {
+  console.log("No podemos devolver ese cambio exacto.");
+  console.log("Intenta ingresar un valor que permita cambio en multiplos de $50.");
+  solicitarPago();
+  return;
+}
+
+confirmacionCompra = true;
+mensajeEstado = "Pago exitoso";
 
       // Descontar ingredientes despues del pago
       descontarIngredientes();
 
-      console.log("¡Pago exitoso!");
-      console.log("Tu cambio es: $" + cambio + " COP");
+    console.log("¡Pago exitoso!");
+console.log("--------------------------------");
+console.log("DEVOLUCION DEL CAMBIO");
+console.log("Cambio total: $" + cambio + " COP");
+
+if (desgloseCambio.length === 0) {
+  console.log("No debes recibir cambio.");
+} else {
+  console.log("Billetes y monedas que se entregan:");
+
+  for (let elemento of desgloseCambio) {
+    console.log(
+      elemento.cantidad + " " +
+      elemento.tipo.toLowerCase() + "(s) de $" +
+      elemento.valor + " COP"
+    );
+  }
+}
+
+console.log("--------------------------------");
 
       // Simular la preparacion
       mensajePreparacion =
@@ -327,6 +402,15 @@ if (deseaAzucar === "Si") {
       console.log("Precio pagado: $" + precioSeleccionado + " COP");
       console.log("Dinero recibido: $" + dineroIngresado + " COP");
       console.log("Cambio entregado: $" + cambio + " COP");
+      console.log("Desglose del cambio:");
+
+for (let elemento of desgloseCambio) {
+  console.log(
+    elemento.cantidad + " " +
+    elemento.tipo.toLowerCase() + "(s) de $" +
+    elemento.valor + " COP"
+  );
+}
       console.log("--------------------------------");
       console.log("¡Tu bebida esta lista!");
 

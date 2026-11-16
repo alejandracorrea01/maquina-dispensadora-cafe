@@ -19,57 +19,30 @@ Las variables permiten almacenar y administrar la información necesaria para el
 En JavaScript se utilizan `const` para declarar valores que no necesitan reasignarse y `let` para declarar variables cuyos valores pueden cambiar durante la ejecución del programa.
 
 ### 3.1. Tabla de variables
-
-| Variable | Tipo | Tipo de dato | Unidad |
-|---|---|---|---|
-| `producto1` a `producto8` | Constantes | String | No aplica |
-| `precio1` a `precio8` | Constantes | Number | Pesos colombianos (COP) |
-| `cantidadCafeEspresso`, `cantidadCafeAmericano`, `cantidadCafeCapuchino`, `cantidadCafeLatte`, `cantidadCafeMocaccino`, `cantidadCafeFlatWhite`, `cantidadCafeMacchiato` | Constantes | Number | Gramos (g) |
-| `cantidadAguaEspresso`, `cantidadAguaAmericano` | Constantes | Number | Mililitros (ml) |
-| `cantidadLecheCapuchino`, `cantidadLecheLatte`, `cantidadLecheMocaccino`, `cantidadLecheFlatWhite`, `cantidadLecheChocolate` | Constantes | Number | Mililitros (ml) |
-| `cantidadEspumaCapuchino`, `cantidadEspumaMacchiato` | Constantes | Number | Mililitros (ml) |
-| `cantidadChocolateMocaccino`, `cantidadChocolateBebida` | Constantes | Number | Gramos (g) |
-| `opcionUsuario` | Variable | Number | No aplica |
-| `dineroIngresado` | Variable | Number | Pesos colombianos (COP) |
-| `cambio` | Variable | Number | Pesos colombianos (COP) |
-| `precioSeleccionado` | Variable | Number | Pesos colombianos (COP) |
-| `nombreSeleccionado` | Variable | String | No aplica |
-| `tiempoPreparacion` | Variable | Number | Segundos (s) |
-| `confirmacionCompra` | Variable | Boolean | No aplica |
-| `menuProductos` | Variable | String | No aplica |
-| `mensajeEstado` | Variable | String | No aplica |
-| `mensajePreparacion` | Variable | String | No aplica |
-| `ingredientesSeleccionados` | Variable | String | No aplica |
-| `vasosDisponibles` | Número entero (`Number`) | Vasos | Cantidad de vasos disponibles en la máquina. Inicia en 20 y disminuye en uno por cada compra exitosa. |
+| `cafeDisponible` | Variable (`let`) | Number | Gramos (g) |
+| `aguaDisponible` | Variable (`let`) | Number | Mililitros (ml) |
+| `lecheDisponible` | Variable (`let`) | Number | Mililitros (ml) |
+| `espumaDisponible` | Variable (`let`) | Number | Mililitros (ml) |
+| `chocolateDisponible` | Variable (`let`) | Number | Gramos (g) |
+| `azucarDisponible` | Variable (`let`) | Number | Gramos (g) |
+| `cantidadAzucar` | Constante (`const`) | Number | Gramos por bebida (g) |
+| `deseaAzucar` | Variable (`let`) | String | No aplica |
+| `denominacionesCambio` | Constante (`const`) | Array de objetos | Pesos colombianos (COP) |
+| `desgloseCambio` | Variable local (`let`) | Array de objetos | Cantidad de billetes y monedas |
 
 ### 3.2. Descripción de las variables
 
-**Productos y precios**
+**Inventario y preferencias**
 
-- `producto1` a `producto8`: almacenan los nombres de las ocho bebidas disponibles.
-- `precio1` a `precio8`: almacenan el precio correspondiente a cada bebida en pesos colombianos.
+- `cafeDisponible`, `aguaDisponible`, `lecheDisponible`, `espumaDisponible` y `chocolateDisponible`: almacenan las cantidades disponibles de cada ingrediente.
+- `azucarDisponible`: controla la cantidad de azúcar disponible en gramos.
+- `cantidadAzucar`: establece que cada bebida con azúcar utiliza 5 gramos.
+- `deseaAzucar`: almacena la preferencia del usuario sobre agregar azúcar.
 
-**Ingredientes**
+**Devolución del cambio**
 
-- `cantidadCafeEspresso` a `cantidadCafeMacchiato`: representan las cantidades de café utilizadas en las siete bebidas que contienen café.
-- `cantidadAguaEspresso` y `cantidadAguaAmericano`: almacenan las cantidades de agua utilizadas en el espresso y el café americano.
-- `cantidadLecheCapuchino`, `cantidadLecheLatte`, `cantidadLecheMocaccino`, `cantidadLecheFlatWhite` y `cantidadLecheChocolate`: representan las cantidades de leche utilizadas en las recetas correspondientes.
-- `cantidadEspumaCapuchino` y `cantidadEspumaMacchiato`: almacenan las cantidades de espuma de leche.
-- `cantidadChocolateMocaccino` y `cantidadChocolateBebida`: representan las cantidades de chocolate utilizadas en el mocaccino y el chocolate caliente.
-
-**Variables de funcionamiento**
-
-- `opcionUsuario`: almacena la opción numérica ingresada para seleccionar una bebida.
-- `dineroIngresado`: registra el dinero introducido por el usuario.
-- `cambio`: almacena la diferencia entre el dinero ingresado y el precio de la bebida.
-- `precioSeleccionado`: contiene el precio del producto elegido.
-- `nombreSeleccionado`: almacena el nombre del producto seleccionado.
-- `tiempoPreparacion`: representa el tiempo estimado de preparación configurado en el programa.
-- `confirmacionCompra`: registra un valor booleano relacionado con el estado de confirmación de la compra.
-- `menuProductos`: contiene el texto que presenta las bebidas disponibles y sus precios.
-- `mensajeEstado`: almacena mensajes relacionados con el estado de la operación y las validaciones.
-- `mensajePreparacion`: contiene el mensaje que se muestra al usuario sobre la preparación de la bebida.
-- `ingredientesSeleccionados`: almacena la información de los ingredientes asociados con la bebida elegida.
+- `denominacionesCambio`: contiene los valores y tipos de billetes y monedas utilizados para calcular la devolución.
+- `desgloseCambio`: almacena la combinación de denominaciones y sus respectivas cantidades para entregar el cambio exacto.
 
 ## 4. Recetas de los productos
 
@@ -127,20 +100,23 @@ Las siguientes recetas corresponden a las cantidades de ingredientes definidas p
 
 ## 5. Funcionamiento general
 
-El programa sigue el siguiente proceso:
+El programa sigue este proceso:
 
-1. Muestra el menú con las ocho bebidas disponibles y sus precios.
+1. Muestra el menú con las ocho bebidas y sus precios.
 2. Solicita al usuario que seleccione una bebida.
-3. Valida que la opción ingresada sea válida, numérica y corresponda a un producto del menú.
-4. Identifica el nombre y el precio de la bebida seleccionada.
-5. Solicita el dinero necesario para realizar la compra.
-6. Verifica que el valor ingresado sea numérico y positivo.
-7. Comprueba que el dinero sea suficiente para pagar el producto.
-8. Si el dinero es suficiente, calcula el cambio mediante una resta.
-9. Muestra un mensaje sobre la preparación y el resultado de la compra.
-10. Presenta un resumen con la información de la operación.
-
-Si la selección no es válida, el programa informa el error y finaliza la interacción correspondiente. Si el pago presenta un valor inválido o es insuficiente, solicita nuevamente el dinero.
+3. Valida que la selección sea un número entero entre 1 y 8.
+4. Identifica el nombre, precio e ingredientes de la bebida seleccionada.
+5. Comprueba que haya suficientes ingredientes y vasos disponibles.
+6. Pregunta si el usuario desea agregar azúcar.
+7. Comprueba que haya azúcar disponible cuando el usuario la solicita.
+8. Solicita el dinero para realizar la compra.
+9. Valida que el pago sea numérico y suficiente.
+10. Permite cancelar la compra escribiendo 0.
+11. Calcula el cambio y determina la combinación de billetes y monedas mediante el algoritmo de devolución.
+12. Descuenta los ingredientes, el azúcar (si se solicitó) y un vaso después del pago exitoso.
+13. Muestra la preparación y el resumen de la compra.
+14. Actualiza y muestra los inventarios disponibles.
+15. Pregunta si el usuario desea realizar otra compra o apagar la máquina.
 
 ## 6. Análisis de entradas y salidas
 
@@ -229,4 +205,30 @@ Se implementó una opción para que el usuario decida si desea azúcar en su beb
 - Se muestra la cantidad de azúcar disponible después de cada compra.
 
 **Pruebas realizadas:** se verificó el descuento de 5 gramos al elegir azúcar y la conservación del inventario al seleccionar una bebida sin azúcar.
+
+### 10.1. Algoritmo de devolución exacta del cambio
+
+Se implementó un algoritmo para calcular la combinación de billetes y monedas necesaria para devolver el cambio al usuario.
+
+Para desarrollar esta función, se creó un arreglo llamado `denominacionesCambio`, que contiene los valores de las denominaciones disponibles y su tipo (billete o moneda).
+
+También se creó la función `calcularCambio(cambio)`, que realiza los siguientes pasos:
+
+1. Recibe el valor total del cambio que debe entregarse.
+2. Recorre el arreglo de denominaciones, comenzando por los valores más altos.
+3. Utiliza `Math.floor()` para calcular cuántos billetes o monedas de cada denominación se necesitan.
+4. Resta del cambio restante el valor de las unidades utilizadas.
+5. Guarda cada denominación y su cantidad en el arreglo `resultadoCambio`.
+6. Comprueba si todavía queda una cantidad pendiente. Si no es posible devolver el cambio exacto, informa al usuario.
+
+El resultado se almacena en la variable `desgloseCambio`, que permite mostrar la cantidad de billetes y monedas que se entregarán.
+
+**Ejemplo de funcionamiento:**
+
+Si el usuario compra un café americano de $3.500 COP e ingresa $8.000 COP, el programa calcula un cambio de $4.500 COP y presenta la siguiente combinación:
+
+- 2 billetes de $2.000 COP.
+- 1 moneda de $500 COP.
+
+De esta manera, la máquina no solamente calcula el valor del cambio, sino que también determina y muestra cómo se puede entregar utilizando diferentes denominaciones.
 

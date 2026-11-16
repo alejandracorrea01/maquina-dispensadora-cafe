@@ -272,4 +272,31 @@ A medida que avance el proyecto, continuaré actualizando esta bitácora para re
 
 **Resultado:** la funcionalidad se implementó y se probó correctamente.
 
+## 17. Implementación del algoritmo de devolución exacta del cambio
+
+En esta etapa del proyecto trabajé en mejorar el sistema de devolución de dinero de la máquina dispensadora. El objetivo era que el programa no solamente calculara cuánto cambio debía devolver, sino que también determinara la combinación de billetes y monedas necesaria para completar esa cantidad.
+
+**Cambios realizados:**
+
+- Se creó el arreglo `denominacionesCambio`, que almacena los valores de los billetes y monedas.
+- Se desarrolló la función `calcularCambio(cambio)` para calcular la combinación de denominaciones.
+- Se utilizó un ciclo `for` para recorrer las denominaciones disponibles.
+- Se implementó `Math.floor()` para determinar cuántas unidades de cada denominación se necesitan.
+- Se creó el arreglo `resultadoCambio` para almacenar las cantidades calculadas.
+- Se agregó la variable `desgloseCambio` para guardar el resultado de la devolución.
+- Se modificaron los mensajes de la terminal para mostrar el cambio total y el desglose de billetes y monedas.
+
+**Pruebas realizadas:**
+
+1. Se seleccionó un capuchino de $5.000 COP y se ingresaron $10.000 COP. El programa calculó $5.000 COP de cambio y mostró un billete de $5.000.
+2. Se seleccionó un café americano de $3.500 COP y se ingresaron $8.000 COP. El programa calculó $4.500 COP de cambio y mostró dos billetes de $2.000 y una moneda de $500.
+3. Se seleccionó un chocolate caliente de $4.000 COP y se ingresaron $8.000 COP. El programa calculó $4.000 COP de cambio y mostró dos billetes de $2.000.
+
+**Resultado:**
+
+Las pruebas realizadas fueron exitosas. El programa ahora calcula el cambio y presenta la combinación de billetes y monedas que se utilizaría para devolverlo al usuario.
+
+**Aprendizaje:**
+
+Con esta implementación aprendí a utilizar arreglos, objetos, ciclos `for`, funciones y `Math.floor()` para resolver un problema mediante programación. También comprendí cómo dividir una cantidad de dinero en diferentes denominaciones.
 
