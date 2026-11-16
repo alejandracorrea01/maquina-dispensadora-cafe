@@ -138,8 +138,6 @@ menuProductos =
   "7. " + producto7 + " - $" + precio7 + " COP\n" +
   "8. " + producto8 + " - $" + precio8 + " COP\n";
 
-console.log(menuProductos);
-
 // Configurar entrada de datos
 const readline = require("readline");
 
