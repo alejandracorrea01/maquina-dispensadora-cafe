@@ -252,3 +252,24 @@ A medida que avance el proyecto, continuaré actualizando esta bitácora para re
 - Verificación de la opción de apagar la máquina.
 
 **Resultado:** las pruebas se realizaron correctamente y el inventario se mantiene actualizado durante la ejecución del programa.
+
+### Implementación de la opción de azúcar
+
+**Cambios realizados:**
+- Se agregó una pregunta para que el usuario decida si desea azúcar.
+- Se implementó la selección entre Sí y No.
+- Se creó un inventario inicial de 500 gramos de azúcar.
+- Se estableció un consumo de 5 gramos por bebida.
+- Se agregó la validación de disponibilidad de azúcar.
+- Se implementó el descuento automático después del pago.
+- Se agregó la visualización del inventario restante.
+
+**Pruebas realizadas:**
+- Compra de una bebida con azúcar.
+- Compra de una bebida sin azúcar.
+- Verificación del descuento de 5 gramos.
+- Verificación de que el inventario no disminuya cuando no se desea azúcar.
+
+**Resultado:** la funcionalidad se implementó y se probó correctamente.
+
+

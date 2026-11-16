@@ -58,6 +58,8 @@ let aguaDisponible = 5000;      // mililitros
 let lecheDisponible = 3000;     // mililitros
 let espumaDisponible = 500;     // mililitros
 let chocolateDisponible = 500;  // gramos
+let azucarDisponible = 500;    // gramos
+const cantidadAzucar = 5;      // gramos por bebida
 
 // Inventario de vasos
 let vasosDisponibles = 20;
@@ -244,6 +246,12 @@ function solicitarPago() {
     return;
   }
 
+  if (deseaAzucar === "Si" && azucarDisponible < cantidadAzucar) {
+  console.log("No hay suficiente azucar disponible.");
+  preguntarOtraCompra();
+  return;
+}
+
   interfaz.question(
     "Ingresa el dinero en pesos colombianos (o escribe 0 para cancelar): $",
     function (respuestaPago) {
@@ -264,7 +272,7 @@ function solicitarPago() {
         Number(pago) < 0
       ) {
         console.log("Ingresa una cantidad de dinero valida.");
-        solicitarPago();
+        preguntarAzucar();
         return;
       }
 
@@ -301,6 +309,15 @@ function solicitarPago() {
         "Tiempo estimado: " + tiempoPreparacion + " segundos."
       );
 
+      // Descontar azucar si el cliente la desea
+if (deseaAzucar === "Si") {
+  if (azucarDisponible >= cantidadAzucar) {
+    azucarDisponible -= cantidadAzucar;
+  } else {
+    console.log("No hay suficiente azucar disponible.");
+  }
+}
+
       // Resumen de compra
       console.log("--------------------------------");
       console.log("RESUMEN DE TU COMPRA");
@@ -321,6 +338,7 @@ function solicitarPago() {
       console.log("Leche disponible: " + lecheDisponible + " ml");
       console.log("Espuma disponible: " + espumaDisponible + " ml");
       console.log("Chocolate disponible: " + chocolateDisponible + " g");
+      console.log("Azucar disponible: " + azucarDisponible + " g");
       console.log("Gracias por comprar en la maquina de cafe.");
 
       preguntarOtraCompra();
@@ -330,27 +348,27 @@ function solicitarPago() {
 
 // Preguntar si el usuario desea azucar
 function preguntarAzucar() {
-  interfaz.question (
-    "\n¿Deseas azucar en tu bebida?'\n" +
-    "1.Si\n" +
-    "2.No\n" +
-    "Selecciona una opción : ",
+  interfaz.question(
+    "\n¿Deseas azucar en tu bebida?\n" +
+    "1. Si\n" +
+    "2. No\n" +
+    "Selecciona una opcion: ",
     function (respuesta) {
-      const opcionAzucar = respuesta.trim() ;
+      const opcionAzucar = respuesta.trim();
 
       if (opcionAzucar === "1") {
         deseaAzucar = "Si";
       } else if (opcionAzucar === "2") {
-        deseaAzucar = "No" ;
+        deseaAzucar = "No";
       } else {
-        console.log ("Opcion no valida. Escribe 1 o 2.");
-          preguntarAzucar();
-          return;
+        console.log("Opcion no valida. Escribe 1 o 2.");
+        preguntarAzucar();
+        return;
       }
 
       console.log("Azucar seleccionada: " + deseaAzucar);
 
-      solicitarPago() ;
+      solicitarPago();
     }
   );
 }

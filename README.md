@@ -215,4 +215,18 @@ Las reglas de negocio establecen las condiciones que debe cumplir el programa pa
     - Presentar el resumen de la compra.
 14. Finalizar la operación.
 
-**FIN**
+## Control de inventario de azúcar
+
+Se implementó una opción para que el usuario decida si desea azúcar en su bebida.
+
+**Características:**
+- La máquina pregunta si el usuario desea azúcar antes del pago.
+- El usuario puede seleccionar Sí o No.
+- El inventario inicial es de 500 gramos.
+- Cada bebida con azúcar consume 5 gramos.
+- Si el usuario no desea azúcar, no se realiza ningún descuento.
+- Se valida que exista suficiente azúcar antes de continuar con el pago.
+- Se muestra la cantidad de azúcar disponible después de cada compra.
+
+**Pruebas realizadas:** se verificó el descuento de 5 gramos al elegir azúcar y la conservación del inventario al seleccionar una bebida sin azúcar.
+
