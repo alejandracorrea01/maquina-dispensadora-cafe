@@ -301,6 +301,7 @@ body {
   cursor: pointer;
   box-shadow: 0 4px 0 var(--gray-500);
   transition: transform 0.08s, box-shadow 0.08s, background 0.15s;
+transition: background 0.2s ease, transform 0.1s ease, box-shadow 0.1s ease;
 }
 .key:hover  { background: var(--color-key-hover); }
 .key:active {
