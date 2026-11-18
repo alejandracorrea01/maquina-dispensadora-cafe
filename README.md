@@ -80,23 +80,7 @@ Las siguientes recetas corresponden a las cantidades de ingredientes definidas p
 - Chocolate: 15 g.
 - Precio: $5.500 COP.
 
-### 6. Flat white
 
-- Café molido: 18 g.
-- Leche: 120 ml.
-- Precio: $5.500 COP.
-
-### 7. Macchiato
-
-- Café molido: 9 g.
-- Espuma de leche: 15 ml.
-- Precio: $3.500 COP.
-
-### 8. Chocolate caliente
-
-- Leche: 200 ml.
-- Chocolate: 25 g.
-- Precio: $4.000 COP.
 
 ## 5. Funcionamiento general
 
