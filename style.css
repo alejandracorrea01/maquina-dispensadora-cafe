@@ -269,7 +269,7 @@ body {
 
 .balance-form__submit {
   padding: 7px 10px;
-  background: var(--gray-300);
+  background: #F4C6D5;
   color: var(--color-text-dark);
   border: 2px solid var(--color-border);
   border-radius: var(--radius-sm);
