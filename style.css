@@ -134,7 +134,7 @@ body {
     transparent 60%,
     var(--color-glass-shine) 75%,
     transparent 85%);
-  opacity: 0.18;
+  opacity: 0.28;
 }
 
 /* ---------- Estantes ---------- */
