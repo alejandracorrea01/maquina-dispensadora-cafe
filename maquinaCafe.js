@@ -11,9 +11,7 @@ const producto2 = "Cafe americano";
 const producto3 = "Capuchino";
 const producto4 = "Cafe latte";
 const producto5 = "Mocaccino";
-const producto6 = "Flat white";
-const producto7 = "Macchiato";
-const producto8 = "Chocolate caliente";
+
 
 // Precios en pesos colombianos (COP)
 const precio1 = 3000;
@@ -21,9 +19,6 @@ const precio2 = 3500;
 const precio3 = 5000;
 const precio4 = 5000;
 const precio5 = 5500;
-const precio6 = 5500;
-const precio7 = 3500;
-const precio8 = 4000;
 
 // Ingredientes de cada bebida
 const cantidadCafeEspresso = 9;
@@ -42,15 +37,6 @@ const cantidadLecheLatte = 180;
 const cantidadCafeMocaccino = 9;
 const cantidadLecheMocaccino = 150;
 const cantidadChocolateMocaccino = 15;
-
-const cantidadCafeFlatWhite = 18;
-const cantidadLecheFlatWhite = 120;
-
-const cantidadCafeMacchiato = 9;
-const cantidadEspumaMacchiato = 15;
-
-const cantidadLecheChocolate = 200;
-const cantidadChocolateBebida = 25;
 
 // Denominaciones para devolver el cambio
 const denominacionesCambio = [
@@ -133,10 +119,7 @@ menuProductos =
   "2. " + producto2 + " - $" + precio2 + " COP\n" +
   "3. " + producto3 + " - $" + precio3 + " COP\n" +
   "4. " + producto4 + " - $" + precio4 + " COP\n" +
-  "5. " + producto5 + " - $" + precio5 + " COP\n" +
-  "6. " + producto6 + " - $" + precio6 + " COP\n" +
-  "7. " + producto7 + " - $" + precio7 + " COP\n" +
-  "8. " + producto8 + " - $" + precio8 + " COP\n";
+  "5. " + producto5 + " - $" + precio5 + " COP\n";
 
 // Configurar entrada de datos
 const readline = require("readline");
@@ -177,18 +160,7 @@ function hayIngredientesDisponibles() {
       lecheNecesaria = cantidadLecheMocaccino;
       chocolateNecesario = cantidadChocolateMocaccino;
       break;
-    case 6:
-      cafeNecesario = cantidadCafeFlatWhite;
-      lecheNecesaria = cantidadLecheFlatWhite;
-      break;
-    case 7:
-      cafeNecesario = cantidadCafeMacchiato;
-      espumaNecesaria = cantidadEspumaMacchiato;
-      break;
-    case 8:
-      lecheNecesaria = cantidadLecheChocolate;
-      chocolateNecesario = cantidadChocolateBebida;
-      break;
+
   }
 
   if (
@@ -232,21 +204,8 @@ function descontarIngredientes() {
       lecheDisponible -= cantidadLecheMocaccino;
       chocolateDisponible -= cantidadChocolateMocaccino;
       break;
-    case 6:
-      cafeDisponible -= cantidadCafeFlatWhite;
-      lecheDisponible -= cantidadLecheFlatWhite;
-      break;
-    case 7:
-      cafeDisponible -= cantidadCafeMacchiato;
-      espumaDisponible -= cantidadEspumaMacchiato;
-      break;
-    case 8:
-      lecheDisponible -= cantidadLecheChocolate;
-      chocolateDisponible -= cantidadChocolateBebida;
-      break;
   }
 }
-
 // Preguntar si se desea hacer otra compra
 function preguntarOtraCompra() {
   if (vasosDisponibles <= 0) {
@@ -460,7 +419,7 @@ function seleccionarBebida() {
   console.log("\n" + menuProductos);
 
   interfaz.question(
-    "Selecciona una bebida del 1 al 8: ",
+    "Selecciona una bebida del 1 al 5: ",
     function (respuesta) {
       opcionUsuario = Number(respuesta.trim());
 
@@ -469,7 +428,7 @@ function seleccionarBebida() {
         respuesta.trim() === "" ||
         !Number.isInteger(opcionUsuario) ||
         opcionUsuario < 1 ||
-        opcionUsuario > 8
+        opcionUsuario > 5
       ) {
         console.log(
           "Opcion no valida. Selecciona un numero del 1 al 8."
@@ -522,29 +481,7 @@ function seleccionarBebida() {
             cantidadChocolateMocaccino + " g de chocolate";
           break;
 
-        case 6:
-          nombreSeleccionado = producto6;
-          precioSeleccionado = precio6;
-          ingredientesSeleccionados =
-            cantidadCafeFlatWhite + " g de cafe y " +
-            cantidadLecheFlatWhite + " ml de leche";
-          break;
-
-        case 7:
-          nombreSeleccionado = producto7;
-          precioSeleccionado = precio7;
-          ingredientesSeleccionados =
-            cantidadCafeMacchiato + " g de cafe y " +
-            cantidadEspumaMacchiato + " ml de espuma de leche";
-          break;
-
-        case 8:
-          nombreSeleccionado = producto8;
-          precioSeleccionado = precio8;
-          ingredientesSeleccionados =
-            cantidadLecheChocolate + " ml de leche y " +
-            cantidadChocolateBebida + " g de chocolate";
-          break;
+      
       }
 
       console.log("Seleccionaste: " + nombreSeleccionado);
