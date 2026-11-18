@@ -121,13 +121,7 @@ menuProductos =
   "4. " + producto4 + " - $" + precio4 + " COP\n" +
   "5. " + producto5 + " - $" + precio5 + " COP\n";
 
-// Configurar entrada de datos
-const readline = require("readline");
 
-const interfaz = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
 
 // Verificar si hay suficientes ingredientes
 function hayIngredientesDisponibles() {
@@ -496,5 +490,65 @@ function seleccionarBebida() {
   );
 }
 
-// Iniciar la maquina
-seleccionarBebida();
+// Conectar las bebidas de la vitrina con JavaScript
+const bebidasVitrina = document.querySelectorAll("[data-product]");
+const pantallaSeleccion = document.getElementById("selection-display");
+
+bebidasVitrina.forEach((bebida) => {
+  bebida.addEventListener("click", () => {
+    opcionUsuario = Number(bebida.dataset.product);
+
+    switch (opcionUsuario) {
+      case 1:
+        nombreSeleccionado = producto1;
+        precioSeleccionado = precio1;
+        break;
+      case 2:
+        nombreSeleccionado = producto2;
+        precioSeleccionado = precio2;
+        break;
+      case 3:
+        nombreSeleccionado = producto3;
+        precioSeleccionado = precio3;
+        break;
+      case 4:
+        nombreSeleccionado = producto4;
+        precioSeleccionado = precio4;
+        break;
+      case 5:
+        nombreSeleccionado = producto5;
+        precioSeleccionado = precio5;
+        break;
+    }
+
+    pantallaSeleccion.textContent =
+      nombreSeleccionado + " - $" +
+      precioSeleccionado.toLocaleString("es-CO") + " COP";
+
+    console.log("Bebida seleccionada:", nombreSeleccionado);
+  });
+});
+
+// Conectar el formulario para ingresar dinero
+const formularioSaldo = document.getElementById("balance-form");
+const entradaDinero = document.getElementById("balance-input");
+const pantallaSaldo = document.getElementById("credit");
+
+formularioSaldo.addEventListener("submit", (evento) => {
+  evento.preventDefault();
+
+  const cantidad = Number(entradaDinero.value);
+
+  if (cantidad <= 0) {
+    return;
+  }
+
+  dineroIngresado += cantidad;
+
+  pantallaSaldo.textContent =
+    "$" + dineroIngresado.toLocaleString("es-CO") + " COP";
+
+  entradaDinero.value = "";
+});
+
+
