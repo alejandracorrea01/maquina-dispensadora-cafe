@@ -121,13 +121,7 @@ menuProductos =
   "4. " + producto4 + " - $" + precio4 + " COP\n" +
   "5. " + producto5 + " - $" + precio5 + " COP\n";
 
-// Configurar entrada de datos
-const readline = require("readline");
 
-const interfaz = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
 
 // Verificar si hay suficientes ingredientes
 function hayIngredientesDisponibles() {
@@ -206,295 +200,193 @@ function descontarIngredientes() {
       break;
   }
 }
-// Preguntar si se desea hacer otra compra
-function preguntarOtraCompra() {
-  if (vasosDisponibles <= 0) {
-    console.log("No quedan vasos disponibles. La maquina se apagara.");
-    interfaz.close();
-    return;
-  }
 
-  interfaz.question(
-    "\n¿Que deseas hacer?\n" +
-    "1. Comprar otra bebida\n" +
-    "2. Apagar la maquina\n" +
-    "Selecciona 1 o 2: ",
-    function (respuesta) {
-      const opcion = respuesta.trim();
 
-      if (opcion === "1") {
-        seleccionarBebida();
-      } else if (opcion === "2") {
-        console.log("Maquina apagada. ¡Gracias por utilizarla!");
-        interfaz.close();
-      } else {
-        console.log("Opcion no valida. Escribe 1 o 2.");
-        preguntarOtraCompra();
-      }
+// Conectar las bebidas de la vitrina con JavaScript
+const bebidasVitrina = document.querySelectorAll("[data-product]");
+const pantallaSeleccion = document.getElementById("selection-display");
+
+bebidasVitrina.forEach((bebida) => {
+  bebida.addEventListener("click", () => {
+    opcionUsuario = Number(bebida.dataset.product);
+
+    switch (opcionUsuario) {
+      case 1:
+        nombreSeleccionado = producto1;
+        precioSeleccionado = precio1;
+        break;
+      case 2:
+        nombreSeleccionado = producto2;
+        precioSeleccionado = precio2;
+        break;
+      case 3:
+        nombreSeleccionado = producto3;
+        precioSeleccionado = precio3;
+        break;
+      case 4:
+        nombreSeleccionado = producto4;
+        precioSeleccionado = precio4;
+        break;
+      case 5:
+        nombreSeleccionado = producto5;
+        precioSeleccionado = precio5;
+        break;
     }
-  );
-}
 
-// Solicitar y validar el pago
-function solicitarPago() {
-  if (vasosDisponibles <= 0) {
-    console.log("Lo sentimos, no quedan vasos disponibles.");
-    interfaz.close();
+    pantallaSeleccion.textContent =
+      nombreSeleccionado + " - $" +
+      precioSeleccionado.toLocaleString("es-CO") + " COP";
+
+    console.log("Bebida seleccionada:", nombreSeleccionado);
+  });
+});
+
+// Conectar el teclado numérico de la máquina
+const botonesTeclado = document.querySelectorAll("[data-select]");
+
+botonesTeclado.forEach((boton) => {
+  boton.addEventListener("click", () => {
+    const numero = boton.dataset.select;
+    const campoDinero = document.getElementById("balance-input");
+
+    campoDinero.value += numero;
+  });
+});
+
+// Conectar el botón de cancelar
+const botonCancelar = document.querySelector('[data-action="cancel"]');
+
+botonCancelar.addEventListener("click", () => {
+  if (dineroIngresado > 0) {
+    document.getElementById("coin-output").textContent =
+      "$" + dineroIngresado.toLocaleString("es-CO") + " COP";
+  }
+
+  dineroIngresado = 0;
+  opcionUsuario = 0;
+  precioSeleccionado = 0;
+  nombreSeleccionado = "";
+
+  pantallaSaldo.textContent = "$0";
+  pantallaSeleccion.textContent = "Selecciona una bebida";
+
+  entradaDinero.value = "";
+
+  console.log("Operación cancelada");
+});
+
+// Conectar el botón para devolver el saldo
+const botonDevolver = document.querySelector('[data-action="return-change"]');
+
+botonDevolver.addEventListener("click", () => {
+  if (dineroIngresado <= 0) {
+    pantallaSeleccion.textContent = "No hay dinero para devolver";
     return;
   }
 
-  if (!hayIngredientesDisponibles()) {
-    preguntarOtraCompra();
+  document.getElementById("coin-output").textContent =
+    "$" + dineroIngresado.toLocaleString("es-CO") + " COP";
+
+  dineroIngresado = 0;
+  opcionUsuario = 0;
+  precioSeleccionado = 0;
+  nombreSeleccionado = "";
+
+  pantallaSaldo.textContent = "$0";
+  pantallaSeleccion.textContent = "Dinero devuelto";
+
+  entradaDinero.value = "";
+
+  console.log("Dinero devuelto");
+});
+
+// Conectar el botón de compra
+const botonComprar = document.getElementById("buy-button");
+
+botonComprar.addEventListener("click", () => {
+  if (opcionUsuario === 0) {
+    pantallaSeleccion.textContent = "Primero selecciona una bebida";
     return;
   }
 
-  if (deseaAzucar === "Si" && azucarDisponible < cantidadAzucar) {
-  console.log("No hay suficiente azucar disponible.");
-  preguntarOtraCompra();
+  if (dineroIngresado < precioSeleccionado) {
+    pantallaSeleccion.textContent =
+      "Dinero insuficiente. Necesitas $" +
+      precioSeleccionado.toLocaleString("es-CO") + " COP";
+    return;
+  }
+
+  // Verificar disponibilidad de ingredientes
+if (!hayIngredientesDisponibles()) {
+  pantallaSeleccion.textContent =
+    "No hay ingredientes suficientes para esta bebida";
   return;
 }
 
-  interfaz.question(
-    "Ingresa el dinero en pesos colombianos (o escribe 0 para cancelar): $",
-    function (respuestaPago) {
-      const pago = respuestaPago.trim();
-
-      if (pago === "0") {
-        console.log("Compra cancelada.");
-        console.log(
-          "No se recibio dinero, por lo tanto no hay devolucion."
-        );
-        preguntarOtraCompra();
-        return;
-      }
-
-      if (
-        pago === "" ||
-        !Number.isFinite(Number(pago)) ||
-        Number(pago) < 0
-      ) {
-        console.log("Ingresa una cantidad de dinero valida.");
-        solicitarPago();
-        return;
-      }
-
-      dineroIngresado = Number(pago);
-
-     if (dineroIngresado < precioSeleccionado) {
-  console.log("Dinero insuficiente.");
-  console.log(
-    "Te faltan: $" +
-    (precioSeleccionado - dineroIngresado) +
-    " COP"
-  );
-  solicitarPago();
+// Verificar disponibilidad de vasos
+if (vasosDisponibles <= 0) {
+  pantallaSeleccion.textContent =
+    "La máquina no tiene vasos disponibles";
   return;
 }
 
-      // Confirmar pago y calcular cambio
+// Descontar recursos de la compra
+descontarIngredientes();
+vasosDisponibles--;
+
+document.getElementById("cups-stock").textContent =
+  vasosDisponibles;
+
+console.log("Café restante:", cafeDisponible);
+console.log("Agua restante:", aguaDisponible);
+console.log("Leche restante:", lecheDisponible);
+console.log("Espuma restante:", espumaDisponible);
+console.log("Chocolate restante:", chocolateDisponible);
+console.log("Vasos restantes:", vasosDisponibles);
+
+
+
+  // Calcular el cambio
 cambio = dineroIngresado - precioSeleccionado;
 
-// Calcular la cantidad de billetes y monedas
-let desgloseCambio = calcularCambio(cambio);
-
-if (desgloseCambio === null) {
-  console.log("No podemos devolver ese cambio exacto.");
-  console.log("Intenta ingresar un valor que permita cambio en multiplos de $50.");
-  solicitarPago();
-  return;
-}
-
-confirmacionCompra = true;
-mensajeEstado = "Pago exitoso";
-
-      // Descontar ingredientes despues del pago
-      descontarIngredientes();
-
-    console.log("¡Pago exitoso!");
-console.log("--------------------------------");
-console.log("DEVOLUCION DEL CAMBIO");
-console.log("Cambio total: $" + cambio + " COP");
-
-if (desgloseCambio.length === 0) {
-  console.log("No debes recibir cambio.");
+// Mostrar el cambio si corresponde
+if (cambio > 0) {
+  document.getElementById("coin-output").textContent =
+    "$" + cambio.toLocaleString("es-CO") + " COP";
 } else {
-  console.log("Billetes y monedas que se entregan:");
+  document.getElementById("coin-output").textContent = "";
+}
 
-  for (let elemento of desgloseCambio) {
-    console.log(
-      elemento.cantidad + " " +
-      elemento.tipo.toLowerCase() + "(s) de $" +
-      elemento.valor + " COP"
-    );
+// Finalizar el pago
+dineroIngresado = 0;
+
+pantallaSaldo.textContent = "$0";
+
+pantallaSeleccion.textContent =
+  "Pago realizado: " + nombreSeleccionado;
+});
+
+
+// Conectar el formulario para ingresar dinero
+const formularioSaldo = document.getElementById("balance-form");
+const entradaDinero = document.getElementById("balance-input");
+const pantallaSaldo = document.getElementById("credit");
+
+formularioSaldo.addEventListener("submit", (evento) => {
+  evento.preventDefault();
+
+  const cantidad = Number(entradaDinero.value);
+
+  if (cantidad <= 0) {
+    return;
   }
-}
 
-console.log("--------------------------------");
+  dineroIngresado += cantidad;
 
-      // Simular la preparacion
-      mensajePreparacion =
-        "Preparando tu " + nombreSeleccionado + "...";
-      console.log(mensajePreparacion);
+  pantallaSaldo.textContent =
+    "$" + dineroIngresado.toLocaleString("es-CO") + " COP";
 
-      tiempoPreparacion = 5;
-      console.log(
-        "Tiempo estimado: " + tiempoPreparacion + " segundos."
-      );
+  entradaDinero.value = "";
+});
 
-      // Descontar azucar si el cliente la desea
-if (deseaAzucar === "Si") {
-  if (azucarDisponible >= cantidadAzucar) {
-    azucarDisponible -= cantidadAzucar;
-  } else {
-    console.log("No hay suficiente azucar disponible.");
-  }
-}
 
-      // Resumen de compra
-      console.log("--------------------------------");
-      console.log("RESUMEN DE TU COMPRA");
-      console.log("Bebida: " + nombreSeleccionado);
-      console.log("Ingredientes: " + ingredientesSeleccionados);
-      console.log("Azucar: " + deseaAzucar);
-      console.log("Precio pagado: $" + precioSeleccionado + " COP");
-      console.log("Dinero recibido: $" + dineroIngresado + " COP");
-      console.log("Cambio entregado: $" + cambio + " COP");
-      console.log("Desglose del cambio:");
-
-for (let elemento of desgloseCambio) {
-  console.log(
-    elemento.cantidad + " " +
-    elemento.tipo.toLowerCase() + "(s) de $" +
-    elemento.valor + " COP"
-  );
-}
-      console.log("--------------------------------");
-      console.log("¡Tu bebida esta lista!");
-
-      vasosDisponibles--;
-
-      console.log("Vasos disponibles: " + vasosDisponibles);
-      console.log("Cafe disponible: " + cafeDisponible + " g");
-      console.log("Agua disponible: " + aguaDisponible + " ml");
-      console.log("Leche disponible: " + lecheDisponible + " ml");
-      console.log("Espuma disponible: " + espumaDisponible + " ml");
-      console.log("Chocolate disponible: " + chocolateDisponible + " g");
-      console.log("Azucar disponible: " + azucarDisponible + " g");
-      console.log("Gracias por comprar en la maquina de cafe.");
-
-      preguntarOtraCompra();
-    }
-  );
-}
-
-// Preguntar si el usuario desea azucar
-function preguntarAzucar() {
-  interfaz.question(
-    "\n¿Deseas azucar en tu bebida?\n" +
-    "1. Si\n" +
-    "2. No\n" +
-    "Selecciona una opcion: ",
-    function (respuesta) {
-      const opcionAzucar = respuesta.trim();
-
-      if (opcionAzucar === "1") {
-        deseaAzucar = "Si";
-      } else if (opcionAzucar === "2") {
-        deseaAzucar = "No";
-      } else {
-        console.log("Opcion no valida. Escribe 1 o 2.");
-        preguntarAzucar();
-        return;
-      }
-
-      console.log("Azucar seleccionada: " + deseaAzucar);
-
-      solicitarPago();
-    }
-  );
-}
-
-// Mostrar el menu y solicitar una bebida
-function seleccionarBebida() {
-  console.log("\n" + menuProductos);
-
-  interfaz.question(
-    "Selecciona una bebida del 1 al 5: ",
-    function (respuesta) {
-      opcionUsuario = Number(respuesta.trim());
-
-      // Validar la seleccion
-      if (
-        respuesta.trim() === "" ||
-        !Number.isInteger(opcionUsuario) ||
-        opcionUsuario < 1 ||
-        opcionUsuario > 5
-      ) {
-        console.log(
-          "Opcion no valida. Selecciona un numero del 1 al 8."
-        );
-        seleccionarBebida();
-        return;
-      }
-
-      // Identificar bebida, precio e ingredientes
-      switch (opcionUsuario) {
-        case 1:
-          nombreSeleccionado = producto1;
-          precioSeleccionado = precio1;
-          ingredientesSeleccionados =
-            cantidadCafeEspresso + " g de cafe y " +
-            cantidadAguaEspresso + " ml de agua";
-          break;
-
-        case 2:
-          nombreSeleccionado = producto2;
-          precioSeleccionado = precio2;
-          ingredientesSeleccionados =
-            cantidadCafeAmericano + " g de cafe y " +
-            cantidadAguaAmericano + " ml de agua";
-          break;
-
-        case 3:
-          nombreSeleccionado = producto3;
-          precioSeleccionado = precio3;
-          ingredientesSeleccionados =
-            cantidadCafeCapuchino + " g de cafe, " +
-            cantidadLecheCapuchino + " ml de leche y " +
-            cantidadEspumaCapuchino + " ml de espuma de leche";
-          break;
-
-        case 4:
-          nombreSeleccionado = producto4;
-          precioSeleccionado = precio4;
-          ingredientesSeleccionados =
-            cantidadCafeLatte + " g de cafe y " +
-            cantidadLecheLatte + " ml de leche";
-          break;
-
-        case 5:
-          nombreSeleccionado = producto5;
-          precioSeleccionado = precio5;
-          ingredientesSeleccionados =
-            cantidadCafeMocaccino + " g de cafe, " +
-            cantidadLecheMocaccino + " ml de leche y " +
-            cantidadChocolateMocaccino + " g de chocolate";
-          break;
-
-      
-      }
-
-      console.log("Seleccionaste: " + nombreSeleccionado);
-      console.log("Precio: $" + precioSeleccionado + " COP");
-      console.log("Ingredientes: " + ingredientesSeleccionados);
-      console.log("--------------------------------");
-
-    
-      
-      preguntarAzucar();
-    }
-  );
-}
-
-// Iniciar la maquina
-seleccionarBebida();
