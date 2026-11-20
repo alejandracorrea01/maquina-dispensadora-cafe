@@ -246,13 +246,10 @@ const botonesTeclado = document.querySelectorAll("[data-select]");
 
 botonesTeclado.forEach((boton) => {
   boton.addEventListener("click", () => {
-    const numeroBebida = boton.dataset.select;
+    const numero = boton.dataset.select;
+    const campoDinero = document.getElementById("balance-input");
 
-    const bebidaCorrespondiente = document.querySelector(
-      `[data-product="${numeroBebida}"]`
-    );
-
-    bebidaCorrespondiente.click();
+    campoDinero.value += numero;
   });
 });
 
@@ -318,6 +315,36 @@ botonComprar.addEventListener("click", () => {
       precioSeleccionado.toLocaleString("es-CO") + " COP";
     return;
   }
+
+  // Verificar disponibilidad de ingredientes
+if (!hayIngredientesDisponibles()) {
+  pantallaSeleccion.textContent =
+    "No hay ingredientes suficientes para esta bebida";
+  return;
+}
+
+// Verificar disponibilidad de vasos
+if (vasosDisponibles <= 0) {
+  pantallaSeleccion.textContent =
+    "La máquina no tiene vasos disponibles";
+  return;
+}
+
+// Descontar recursos de la compra
+descontarIngredientes();
+vasosDisponibles--;
+
+document.getElementById("cups-stock").textContent =
+  vasosDisponibles;
+
+console.log("Café restante:", cafeDisponible);
+console.log("Agua restante:", aguaDisponible);
+console.log("Leche restante:", lecheDisponible);
+console.log("Espuma restante:", espumaDisponible);
+console.log("Chocolate restante:", chocolateDisponible);
+console.log("Vasos restantes:", vasosDisponibles);
+
+
 
   // Calcular el cambio
 cambio = dineroIngresado - precioSeleccionado;
