@@ -303,6 +303,41 @@ botonDevolver.addEventListener("click", () => {
   console.log("Dinero devuelto");
 });
 
+// Conectar el botón de compra
+const botonComprar = document.getElementById("buy-button");
+
+botonComprar.addEventListener("click", () => {
+  if (opcionUsuario === 0) {
+    pantallaSeleccion.textContent = "Primero selecciona una bebida";
+    return;
+  }
+
+  if (dineroIngresado < precioSeleccionado) {
+    pantallaSeleccion.textContent =
+      "Dinero insuficiente. Necesitas $" +
+      precioSeleccionado.toLocaleString("es-CO") + " COP";
+    return;
+  }
+
+  // Calcular el cambio
+cambio = dineroIngresado - precioSeleccionado;
+
+// Mostrar el cambio si corresponde
+if (cambio > 0) {
+  document.getElementById("coin-output").textContent =
+    "$" + cambio.toLocaleString("es-CO") + " COP";
+} else {
+  document.getElementById("coin-output").textContent = "";
+}
+
+// Finalizar el pago
+dineroIngresado = 0;
+
+pantallaSaldo.textContent = "$0";
+
+pantallaSeleccion.textContent =
+  "Pago realizado: " + nombreSeleccionado;
+});
 
 
 // Conectar el formulario para ingresar dinero
